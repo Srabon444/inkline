@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../content.css">
+<style>
+  body { margin: 0; background: #ddd; font-family: system-ui, sans-serif; color: #1f1b2e; }
+  .shot { width: 1280px; height: 800px; position: relative; overflow: hidden; margin-bottom: 20px;
+    background: radial-gradient(circle at 15% 20%, #efe9ff 0, transparent 45%), radial-gradient(circle at 90% 90%, #ffe4f1 0, transparent 40%), #faf9ff; }
+  .tile { width: 440px; height: 280px; position: relative; overflow: hidden; margin-bottom: 20px;
+    background: linear-gradient(135deg, #6d4aff, #d6458f); color: #fff; }
+  h1 { font: 700 54px/1.1 Georgia, serif; margin: 0 0 18px; letter-spacing: -0.5px; }
+  p.lead { font-size: 22px; color: #5d5875; margin: 0; line-height: 1.45; }
+  .copy { position: absolute; left: 80px; top: 120px; width: 470px; }
+  .brand { display: flex; align-items: center; gap: 12px; font: 600 26px Georgia, serif; margin-bottom: 48px; }
+  .brand img { width: 44px; height: 44px; }
+  .win { position: absolute; background: #fff; border-radius: 14px; box-shadow: 0 30px 70px rgba(50, 30, 110, .18); overflow: hidden; }
+  .win .bar { background: #3c3a47; color: #fff; padding: 12px 18px; font-size: 15px; }
+  .row { border-bottom: 1px solid #eee; padding: 12px 18px; font-size: 15px; color: #777; }
+  .subject-wrap { position: relative; }
+  .subject-wrap input { width: 100%; box-sizing: border-box; border: 0; border-bottom: 1px solid #eee; padding: 12px 18px; font: 16px system-ui, sans-serif; outline: none; }
+  .body { padding: 18px; font-size: 15px; color: #444; line-height: 1.6; }
+  .inkline-menu { position: absolute; }
+  .mail { display: grid; grid-template-columns: 170px 1fr 70px; gap: 16px; padding: 15px 22px; border-bottom: 1px solid #f0eef6; font-size: 15px; align-items: center; }
+  .mail.unread { font-weight: 600; }
+  .mail .from { color: #333; } .mail .subj { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .mail .time { color: #999; text-align: right; font-weight: 400; }
+  .pill { display: inline-block; margin: 8px 8px 0 0; padding: 7px 14px; border-radius: 99px; background: #fff; border: 1px solid #e3ddf7; font-size: 17px; }
+</style>
+</head>
+<body>
+<section class="shot" id="shot1">
+  <div class="copy">
+    <div class="brand"><img src="../icons/icon128.png" alt=""> Inkline</div>
+    <h1>Subject lines people actually open</h1>
+    <p class="lead">Select a word, click the <b>𝐁</b> button and pick a style. Bold, italic, underline, strikethrough, bubbles and more.</p>
+  </div>
+  <div class="win" style="left:640px;top:110px;width:560px;height:560px">
+    <div class="bar">New message</div>
+    <div class="row">To&nbsp;&nbsp; alex@example.com</div>
+    <div class="subject-wrap"><input class="inkline-input" data-text="*2ND REQUEST* Quick question about the proposal" data-bold="1,12"><button class="inkline-btn">𝐁</button></div>
+    <div class="body">Hi Alex,<br><br>Following up on my note from last week. Do you have five minutes on Thursday?<br><br>Thanks,<br>Sam</div>
+  </div>
+  <div class="inkline-menu" id="menu1" style="left:960px;top:228px"></div>
+</section>
+
+<section class="shot" id="shot2">
+  <div class="copy" style="top:150px">
+    <div class="brand"><img src="../icons/icon128.png" alt=""> Inkline</div>
+    <h1>Stand out in a crowded inbox</h1>
+    <p class="lead">17 styles, all free. Works in Gmail, and through the right-click menu in any text box on the web.</p>
+  </div>
+  <div class="win" style="left:620px;top:140px;width:600px">
+    <div class="bar">Inbox</div>
+    <div id="inbox"></div>
+  </div>
+</section>
+
+<section class="shot" id="shot3">
+  <div class="copy" style="top:150px;width:560px">
+    <div class="brand"><img src="../icons/icon128.png" alt=""> Inkline</div>
+    <h1>Preview every style, copy in one click</h1>
+    <p class="lead">Open Inkline from the toolbar, type your text and copy the style you like. Paste it anywhere.</p>
+    <div id="pills" style="margin-top:28px"></div>
+  </div>
+  <div class="win" style="left:760px;top:95px;width:380px;height:610px">
+    <iframe src="../popup.html" style="width:380px;height:610px;border:0"></iframe>
+  </div>
+</section>
+
+<section class="tile" id="tile">
+  <div style="position:absolute;left:32px;top:40px">
+    <div style="display:flex;align-items:center;gap:12px;font:600 30px Georgia,serif"><img src="../icons/icon128.png" style="width:52px;height:52px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.2))" alt=""> Inkline</div>
+    <div id="tileText" style="margin-top:26px;font-size:26px;line-height:1.5"></div>
+  </div>
+</section>
+
+<script src="../styles.js"></script>
+<script>
+  const A = Inkline.apply;
+  const input = document.querySelector('.subject-wrap input');
+  input.value = '*' + A('bold', '2ND REQUEST') + '* Quick question about the proposal';
+
+  const menu = document.getElementById('menu1');
+  for (const s of [...Inkline.STYLES.slice(0, 10), { id: 'clear', name: 'Clear formatting' }]) {
+    const b = document.createElement('button');
+    b.className = 'inkline-item' + (s.id === 'clear' ? ' inkline-clear' : '');
+    b.textContent = s.id === 'clear' ? s.name : A(s.id, s.name);
+    if (s.id === 'bold') b.style.background = '#f1edff';
+    menu.append(b);
+  }
+
+  const mails = [
+    ['Northwind Deals', A('bold', 'FLASH SALE') + ' ends tonight (was $' + A('strike', '200') + ', now ' + A('bold', '$49') + ')', '9:41'],
+    ['Team Updates', 'Weekly digest: 4 new comments on your doc', '9:12'],
+    ['Sam Rivera', A('boldItalic', 'Action needed:') + ' contract signature by Friday', '8:55'],
+    ['Billing', 'Your receipt for October', '8:30'],
+    ['Maya Chen', A('whiteBubbles', 'new') + ' Product launch plan, ' + A('underline', 'please review'), 'Yesterday'],
+    ['Newsletter', 'Ten tips for a calmer week', 'Yesterday'],
+    ['Leo Park', A('blackSquares', 'URGENT') + ' Server renewal', 'Mon'],
+    ['Calendar', 'Reminder: design review at 3 PM', 'Mon'],
+  ];
+  document.getElementById('inbox').innerHTML = mails.map(([f, s, t], i) =>
+    `<div class="mail ${[0, 2, 4, 6].includes(i) ? 'unread' : ''}"><span class="from"></span><span class="subj"></span><span class="time">${t}</span></div>`).join('');
+  document.querySelectorAll('#inbox .mail').forEach((el, i) => { el.querySelector('.from').textContent = mails[i][0]; el.querySelector('.subj').textContent = mails[i][1]; });
+
+  document.getElementById('pills').append(...['bold', 'italic', 'underline', 'strike', 'doubleStruck', 'whiteBubbles', 'script', 'mono'].map((id) =>
+    Object.assign(document.createElement('span'), { className: 'pill', textContent: A(id, Inkline.STYLES.find((s) => s.id === id).name) })));
+
+  document.getElementById('tileText').innerHTML = [A('bold', 'Bold'), A('italic', 'Italic'), A('underline', 'Underline'), A('strike', 'Strike'), A('whiteBubbles', 'Bubbles')].map((t) => `<span>${t}</span>`).join(' · ');
+</script>
+</body>
+</html>
