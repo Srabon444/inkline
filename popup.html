@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Inkline</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <img src="icons/icon32.png" alt="" width="24" height="24" />
+      <h1>Inkline</h1>
+    </header>
+    <label for="text">Type your subject, click a style to copy it</label>
+    <textarea id="text" rows="2" maxlength="300" placeholder="Your subject line" autofocus></textarea>
+    <ul id="list"></ul>
+    <footer>
+      In Gmail, click the <b>𝐁</b> button in the subject field. Anywhere else, select text, right-click and choose
+      <b>Inkline style</b>.
+    </footer>
+    <script src="styles.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1f1b2e;
+  --muted: #6b6680;
+  --line: #e7e3f3;
+  --hover: #f4f1ff;
+  --accent: #6d4aff;
+  --ok: #138a55;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1925;
+    --fg: #ece9f7;
+    --muted: #a39dbb;
+    --line: #34304a;
+    --hover: #2a2640;
+    --accent: #a08bff;
+    --ok: #4cd394;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 360px;
+  margin: 0;
+  padding: 14px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.4 system-ui, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin: 0;
+  font: 600 17px Georgia, serif;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: 2px solid var(--accent);
+  border-color: transparent;
+}
+
+ul {
+  max-height: 380px;
+  margin: 10px 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+li button {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+li button:hover,
+li button:focus-visible {
+  background: var(--hover);
+}
+
+.name {
+  color: var(--muted);
+}
+
+.out {
+  overflow: hidden;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copied .name {
+  color: var(--ok);
+  font-weight: 600;
+}
+
+footer {
+  color: var(--muted);
+  font-size: 12px;
+}
